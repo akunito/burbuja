@@ -26,8 +26,12 @@ def driver():
     o.set_preference('intl.accept_languages', 'es-ES, es, en')
     o.set_preference('extensions.experiments.enabled', False)
     o.set_preference('devtools.console.stdout.content', True)
+    # fixed internal UUID so tests can open moz-extension://…/options.html
+    o.set_preference('extensions.webextensions.uuids', '{"burbuja@akunito.com":"0b0b0b0b-0000-4000-8000-000000000001"}')
     o.set_preference('devtools.console.stdout.chrome', True)
-    d = webdriver.Firefox(options=o, service=Service('/usr/local/bin/geckodriver', log_output=f'{OUT}/geckodriver.log'))
+    # --allow-system-access: chrome context, used to open moz-extension:// pages
+    svc = Service('/usr/local/bin/geckodriver', log_output=f'{OUT}/geckodriver.log', service_args=['--allow-system-access'])
+    d = webdriver.Firefox(options=o, service=svc)
     d.set_window_size(1280, 900)
     return d
 
@@ -48,7 +52,8 @@ def main(names):
     try:
         addon = d.install_addon(xpi(), temporary=True)
         print('addon installed:', addon, '| browser', d.capabilities.get('browserName'), d.capabilities.get('browserVersion'))
-        for name in names or cases.ALL:
+        default = cases.BLOCKED if os.environ.get('E2E_BLOCK_GOOGLE') == '1' else cases.ALL
+        for name in names or default:
             t0 = time.perf_counter()
             try:
                 getattr(cases, name)(d)

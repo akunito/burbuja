@@ -107,5 +107,114 @@
   },
   "errAborted": {
     "message": "cancelled"
+  },
+  "optTitle": {
+    "message": "Burbuja settings"
+  },
+  "optLanguages": {
+    "message": "Languages"
+  },
+  "optTarget": {
+    "message": "Translate into"
+  },
+  "optBrowserLang": {
+    "message": "Browser language ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "optSecond": {
+    "message": "When the text is already in that language, translate into"
+  },
+  "optOff": {
+    "message": "Off"
+  },
+  "optEngines": {
+    "message": "Engines"
+  },
+  "optEnginesHelp": {
+    "message": "Tried in this order; if one fails the next one answers."
+  },
+  "optUp": {
+    "message": "Move up"
+  },
+  "optDown": {
+    "message": "Move down"
+  },
+  "optEnabled": {
+    "message": "Enabled"
+  },
+  "optTest": {
+    "message": "Test"
+  },
+  "optTestOk": {
+    "message": "OK: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "optDeepLKey": {
+    "message": "DeepL API key"
+  },
+  "optDeepLHelp": {
+    "message": "Free keys (ending in :fx) give 500,000 characters a month. Stored only on this device."
+  },
+  "optShow": {
+    "message": "Show"
+  },
+  "optHide": {
+    "message": "Hide"
+  },
+  "optAppearance": {
+    "message": "Appearance"
+  },
+  "optTheme": {
+    "message": "Theme"
+  },
+  "optDark": {
+    "message": "Dark"
+  },
+  "optLight": {
+    "message": "Light"
+  },
+  "optSystem": {
+    "message": "System"
+  },
+  "optBehaviour": {
+    "message": "Behaviour"
+  },
+  "optTrigger": {
+    "message": "When text is selected"
+  },
+  "optTriggerIcon": {
+    "message": "Show a small icon; translate on click"
+  },
+  "optTriggerShortcut": {
+    "message": "Nothing; translate only with the keyboard shortcut"
+  },
+  "optShortcutHelp": {
+    "message": "Shortcut: Alt+Shift+T. Change it in about:addons → gear menu → Manage Extension Shortcuts."
+  },
+  "optMaxChars": {
+    "message": "Maximum characters per selection"
+  },
+  "optIgnoreEditable": {
+    "message": "Ignore selections inside text fields"
+  },
+  "optShowDict": {
+    "message": "Show dictionary entries for single words"
+  },
+  "optExcluded": {
+    "message": "Disabled on these sites (one per line)"
+  },
+  "optSaved": {
+    "message": "Saved"
+  },
+  "optPrivacy": {
+    "message": "Selected text is sent only to the engines enabled above. Burbuja collects nothing."
   }
 }

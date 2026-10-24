@@ -10,7 +10,10 @@ PAGES = 'http://127.0.0.1:8765'
 OUT = '/app/.output/e2e'
 
 ALL = ['loads', 'translate_paragraph', 'change_source', 'switch_engine', 'swap', 'word_dictionary', 'copy',
-       'close_paths', 'input_ignored', 'hostile_page', 'listen']
+       'close_paths', 'input_ignored', 'hostile_page', 'listen',
+       'options_render', 'options_engine_test', 'options_target', 'options_excluded', 'options_shortcut_mode', 'options_light_theme']
+BLOCKED = ['fallback_when_google_blocked']
+OPTIONS = 'moz-extension://0b0b0b0b-0000-4000-8000-000000000001/options.html'
 
 
 def wait(d, fn, timeout=10, msg=''):
@@ -179,3 +182,124 @@ def listen(d):
     state = d.execute_script('return document.documentElement.dataset.burbujaAudio') or ''
     assert state.startswith(('ended', 'error:NotAllowedError')) or 'chunks' in state, state
 
+
+
+def goto_options(d):
+    # WebDriver refuses content→moz-extension:// navigation; the browser chrome may do it.
+    with d.context(d.CONTEXT_CHROME):
+        url = d.execute_script("""
+            const p = WebExtensionPolicy.getByID('burbuja@akunito.com');
+            const url = p.getURL('options.html');
+            gBrowser.selectedBrowser.fixupAndLoadURIString(url, { triggeringPrincipal: Services.scriptSecurityManager.getSystemPrincipal() });
+            return url;""")
+    wait(d, lambda: d.current_url.startswith('moz-extension://') and d.find_elements(By.CSS_SELECTOR, '.engine'), msg=f'options page did not open ({url} / {d.current_url})')
+
+def opt(d, sel):
+    return d.find_element(By.CSS_SELECTOR, sel)
+
+
+def set_select(d, sel, value):
+    Select(opt(d, sel)).select_by_value(value)
+    wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.toast'), msg='not saved')
+
+
+def options_render(d):
+    goto_options(d)
+    wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.engine'))
+    names = [e.text for e in d.find_elements(By.CSS_SELECTOR, '.engine .name')]
+    assert names == ['Google', 'Google (alt)', 'Bing', 'DeepL'], names
+    bg = d.execute_script('return getComputedStyle(document.body).backgroundColor')
+    assert bg == 'rgb(18, 21, 29)', bg
+    d.save_screenshot(f'{OUT}/options.png')
+
+
+def options_engine_test(d):
+    goto_options(d)
+    wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.engine'))
+    rows = d.find_elements(By.CSS_SELECTOR, '.engine')
+    bing_row = [r for r in rows if r.find_element(By.CSS_SELECTOR, '.name').text == 'Bing'][0]
+    bing_row.find_element(By.XPATH, './/button[last()]').click()
+    res = wait(d, lambda: bing_row.find_elements(By.CSS_SELECTOR, '.result'), 12, 'no test result')[0]
+    assert 'ok' in res.get_attribute('class'), res.text
+    deepl_row = [r for r in rows if r.find_element(By.CSS_SELECTOR, '.name').text == 'DeepL'][0]
+    deepl_row.find_element(By.XPATH, './/button[last()]').click()
+    res = wait(d, lambda: deepl_row.find_elements(By.CSS_SELECTOR, '.result'), 12, 'no test result')[0]
+    assert 'bad' in res.get_attribute('class'), 'DeepL without key must fail: ' + res.text
+
+
+def options_target(d):
+    goto_options(d)
+    wait(d, lambda: d.find_elements(By.ID, 'target'))
+    set_select(d, '#target', 'fr')
+    try:
+        d.get(f'{PAGES}/basic.html')
+        out = open_panel(d, 'pl')
+        assert Select(q(d, '[data-testid=to]')).first_selected_option.get_attribute('value') == 'fr'
+        assert 'bonjour' in out.text.lower() or 'comment' in out.text.lower(), out.text
+    finally:
+        goto_options(d)
+        wait(d, lambda: d.find_elements(By.ID, 'target'))
+        set_select(d, '#target', '')
+
+
+def options_excluded(d):
+    goto_options(d)
+    ta = wait(d, lambda: d.find_elements(By.ID, 'excl'))[0]
+    ta.send_keys('127.0.0.1')
+    d.find_element(By.TAG_NAME, 'h1').click()  # change fires on blur
+    wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.toast'), msg='not saved')
+    try:
+        d.get(f'{PAGES}/basic.html')
+        select_paragraph(d, 'pl')
+        time.sleep(0.6)
+        assert q(d, '[data-testid=icon]') is None, 'icon on an excluded site'
+    finally:
+        goto_options(d)
+        ta = wait(d, lambda: d.find_elements(By.ID, 'excl'))[0]
+        ta.clear()
+        d.find_element(By.TAG_NAME, 'h1').click()
+        wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.toast'), msg='not saved')
+
+
+def options_shortcut_mode(d):
+    goto_options(d)
+    radios = wait(d, lambda: d.find_elements(By.CSS_SELECTOR, 'input[name=trigger]'))
+    radios[1].click()
+    wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.toast'), msg='not saved')
+    try:
+        d.get(f'{PAGES}/basic.html')
+        select_paragraph(d, 'pl')
+        time.sleep(0.6)
+        assert q(d, '[data-testid=icon]') is None, 'icon shown in shortcut-only mode'
+    finally:
+        goto_options(d)
+        wait(d, lambda: d.find_elements(By.CSS_SELECTOR, 'input[name=trigger]'))[0].click()
+        wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.toast'), msg='not saved')
+
+
+def options_light_theme(d):
+    goto_options(d)
+    wait(d, lambda: d.find_elements(By.CSS_SELECTOR, 'input[name=theme]'))[1].click()
+    wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.toast'), msg='not saved')
+    try:
+        d.get(f'{PAGES}/basic.html')
+        open_panel(d, 'pl')
+        time.sleep(0.3)
+        bg = d.execute_script('return getComputedStyle(arguments[0]).backgroundColor', q(d, '[data-testid=panel]'))
+        assert bg == 'rgb(255, 255, 255)', bg
+        d.save_screenshot(f'{OUT}/panel-light.png')
+    finally:
+        goto_options(d)
+        wait(d, lambda: d.find_elements(By.CSS_SELECTOR, 'input[name=theme]'))[0].click()
+        wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.toast'), msg='not saved')
+
+
+def fallback_when_google_blocked(d):
+    d.get(f'{PAGES}/basic.html')
+    t0 = time.perf_counter()
+    out = open_panel(d, 'pl')
+    ms = (time.perf_counter() - t0) * 1000
+    chip = q(d, '[data-testid=engine]').text
+    assert chip.startswith('Bing'), f'expected Bing after Google failures, got {chip}'
+    assert 'cómo' in out.text.lower(), out.text
+    print(f'   google blocked → {chip} in {ms:.0f} ms')

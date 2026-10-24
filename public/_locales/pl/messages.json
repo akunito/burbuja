@@ -107,5 +107,114 @@
   },
   "errAborted": {
     "message": "anulowano"
+  },
+  "optTitle": {
+    "message": "Ustawienia Burbuja"
+  },
+  "optLanguages": {
+    "message": "Języki"
+  },
+  "optTarget": {
+    "message": "Tłumacz na"
+  },
+  "optBrowserLang": {
+    "message": "Język przeglądarki ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "optSecond": {
+    "message": "Gdy tekst jest już w tym języku, tłumacz na"
+  },
+  "optOff": {
+    "message": "Wyłączone"
+  },
+  "optEngines": {
+    "message": "Silniki"
+  },
+  "optEnginesHelp": {
+    "message": "Używane w tej kolejności; gdy jeden zawiedzie, odpowiada następny."
+  },
+  "optUp": {
+    "message": "W górę"
+  },
+  "optDown": {
+    "message": "W dół"
+  },
+  "optEnabled": {
+    "message": "Włączony"
+  },
+  "optTest": {
+    "message": "Testuj"
+  },
+  "optTestOk": {
+    "message": "OK: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "optDeepLKey": {
+    "message": "Klucz API DeepL"
+  },
+  "optDeepLHelp": {
+    "message": "Darmowe klucze (kończą się na :fx) dają 500 000 znaków miesięcznie. Zapisany tylko na tym urządzeniu."
+  },
+  "optShow": {
+    "message": "Pokaż"
+  },
+  "optHide": {
+    "message": "Ukryj"
+  },
+  "optAppearance": {
+    "message": "Wygląd"
+  },
+  "optTheme": {
+    "message": "Motyw"
+  },
+  "optDark": {
+    "message": "Ciemny"
+  },
+  "optLight": {
+    "message": "Jasny"
+  },
+  "optSystem": {
+    "message": "Systemowy"
+  },
+  "optBehaviour": {
+    "message": "Działanie"
+  },
+  "optTrigger": {
+    "message": "Po zaznaczeniu tekstu"
+  },
+  "optTriggerIcon": {
+    "message": "Pokaż małą ikonę; tłumacz po kliknięciu"
+  },
+  "optTriggerShortcut": {
+    "message": "Nic; tłumacz tylko skrótem klawiszowym"
+  },
+  "optShortcutHelp": {
+    "message": "Skrót: Alt+Shift+T. Zmienisz go w about:addons → menu koła zębatego → Zarządzaj skrótami rozszerzeń."
+  },
+  "optMaxChars": {
+    "message": "Maksymalna liczba znaków zaznaczenia"
+  },
+  "optIgnoreEditable": {
+    "message": "Ignoruj zaznaczenia w polach tekstowych"
+  },
+  "optShowDict": {
+    "message": "Pokazuj hasła słownikowe dla pojedynczych słów"
+  },
+  "optExcluded": {
+    "message": "Wyłączone na tych stronach (jedna na linię)"
+  },
+  "optSaved": {
+    "message": "Zapisano"
+  },
+  "optPrivacy": {
+    "message": "Zaznaczony tekst trafia tylko do włączonych silników. Burbuja niczego nie zbiera."
   }
 }

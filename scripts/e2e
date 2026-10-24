@@ -12,6 +12,9 @@ docker build -q -t burbuja-e2e tests/e2e >/dev/null
 # open shadow root so Selenium can look inside; never ship this build
 WXT_E2E=1 ./scripts/npm run build:firefox >/dev/null
 mkdir -p .output/e2e
-exec docker run --rm -v /nix:/nix:ro -v "${PWD}:/app" -w /app --user 0:0 --memory 4g --cpus 4 --shm-size 1g \
+BLOCK=()
+# E2E_BLOCK_GOOGLE=1: Google hosts resolve to loopback → real connection failures → fallback path
+[ "${E2E_BLOCK_GOOGLE:-0}" = 1 ] && BLOCK=(--add-host translate-pa.googleapis.com:127.0.0.1 --add-host translate.googleapis.com:127.0.0.1 -e E2E_BLOCK_GOOGLE=1)
+exec docker run --rm "${BLOCK[@]}" -v /nix:/nix:ro -v "${PWD}:/app" -w /app --user 0:0 --memory 4g --cpus 4 --shm-size 1g \
   -e BROWSER_BIN="$BIN" -e MOZ_HEADLESS=1 -e HOME=/tmp -e LD_LIBRARY_PATH="$LIBS" \
   burbuja-e2e python -u -m tests.e2e.run "$@"

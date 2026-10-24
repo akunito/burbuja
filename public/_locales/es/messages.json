@@ -107,5 +107,114 @@
   },
   "errAborted": {
     "message": "cancelado"
+  },
+  "optTitle": {
+    "message": "Ajustes de Burbuja"
+  },
+  "optLanguages": {
+    "message": "Idiomas"
+  },
+  "optTarget": {
+    "message": "Traducir a"
+  },
+  "optBrowserLang": {
+    "message": "Idioma del navegador ($P1$)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "optSecond": {
+    "message": "Si el texto ya está en ese idioma, traducir a"
+  },
+  "optOff": {
+    "message": "Desactivado"
+  },
+  "optEngines": {
+    "message": "Motores"
+  },
+  "optEnginesHelp": {
+    "message": "Se prueban en este orden; si uno falla responde el siguiente."
+  },
+  "optUp": {
+    "message": "Subir"
+  },
+  "optDown": {
+    "message": "Bajar"
+  },
+  "optEnabled": {
+    "message": "Activo"
+  },
+  "optTest": {
+    "message": "Probar"
+  },
+  "optTestOk": {
+    "message": "OK: $P1$",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "optDeepLKey": {
+    "message": "Clave de la API de DeepL"
+  },
+  "optDeepLHelp": {
+    "message": "Las claves gratuitas (terminan en :fx) dan 500.000 caracteres al mes. Se guarda solo en este dispositivo."
+  },
+  "optShow": {
+    "message": "Mostrar"
+  },
+  "optHide": {
+    "message": "Ocultar"
+  },
+  "optAppearance": {
+    "message": "Apariencia"
+  },
+  "optTheme": {
+    "message": "Tema"
+  },
+  "optDark": {
+    "message": "Oscuro"
+  },
+  "optLight": {
+    "message": "Claro"
+  },
+  "optSystem": {
+    "message": "Sistema"
+  },
+  "optBehaviour": {
+    "message": "Comportamiento"
+  },
+  "optTrigger": {
+    "message": "Al seleccionar texto"
+  },
+  "optTriggerIcon": {
+    "message": "Mostrar un icono pequeño; traducir al hacer clic"
+  },
+  "optTriggerShortcut": {
+    "message": "Nada; traducir solo con el atajo de teclado"
+  },
+  "optShortcutHelp": {
+    "message": "Atajo: Alt+Mayús+T. Se cambia en about:addons → menú del engranaje → Gestionar atajos de extensiones."
+  },
+  "optMaxChars": {
+    "message": "Máximo de caracteres por selección"
+  },
+  "optIgnoreEditable": {
+    "message": "Ignorar selecciones dentro de campos de texto"
+  },
+  "optShowDict": {
+    "message": "Mostrar entradas de diccionario para palabras sueltas"
+  },
+  "optExcluded": {
+    "message": "Desactivado en estos sitios (uno por línea)"
+  },
+  "optSaved": {
+    "message": "Guardado"
+  },
+  "optPrivacy": {
+    "message": "El texto seleccionado solo se envía a los motores activos. Burbuja no recoge nada."
   }
 }
