@@ -1,5 +1,111 @@
 {
-  "extName": { "message": "Burbuja" },
-  "extDescription": { "message": "Translate selected text in a bubble. Google with automatic Bing and DeepL fallback, dark by default." },
-  "cmdTranslateSelection": { "message": "Translate the selected text" }
+  "extName": {
+    "message": "Burbuja"
+  },
+  "extDescription": {
+    "message": "Translate selected text in a bubble. Google with automatic Bing and DeepL fallback, dark by default."
+  },
+  "cmdTranslateSelection": {
+    "message": "Translate the selected text"
+  },
+  "uiTranslate": {
+    "message": "Translate"
+  },
+  "uiListen": {
+    "message": "Listen"
+  },
+  "uiStop": {
+    "message": "Stop"
+  },
+  "uiCopy": {
+    "message": "Copy"
+  },
+  "uiCopied": {
+    "message": "Copied"
+  },
+  "uiSwap": {
+    "message": "Swap languages"
+  },
+  "uiClose": {
+    "message": "Close"
+  },
+  "uiSettings": {
+    "message": "Settings"
+  },
+  "uiAutoDetect": {
+    "message": "Detect language"
+  },
+  "uiDetected": {
+    "message": "$P1$ (detected)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "uiSource": {
+    "message": "Source language"
+  },
+  "uiTarget": {
+    "message": "Target language"
+  },
+  "uiEngine": {
+    "message": "Translated by $P1$. Click to use another engine",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "uiLoading": {
+    "message": "Translating…"
+  },
+  "uiFailed": {
+    "message": "Could not translate"
+  },
+  "uiRetry": {
+    "message": "Try again"
+  },
+  "uiTryAll": {
+    "message": "Try other engines"
+  },
+  "uiDictionary": {
+    "message": "Dictionary"
+  },
+  "errNetwork": {
+    "message": "no connection"
+  },
+  "errTimeout": {
+    "message": "timed out"
+  },
+  "errRateLimited": {
+    "message": "rate limited"
+  },
+  "errAuth": {
+    "message": "key rejected"
+  },
+  "errUnsupportedLang": {
+    "message": "language not supported"
+  },
+  "errBadResponse": {
+    "message": "unexpected answer"
+  },
+  "errEmpty": {
+    "message": "empty answer"
+  },
+  "errNotConfigured": {
+    "message": "not configured"
+  },
+  "errHttp": {
+    "message": "server error"
+  },
+  "errIdentical": {
+    "message": "returned the original text"
+  },
+  "errBackoff": {
+    "message": "paused after rate limit"
+  },
+  "errAborted": {
+    "message": "cancelled"
+  }
 }

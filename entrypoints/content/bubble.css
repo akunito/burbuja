@@ -1,0 +1,75 @@
+/* px only: rem would follow the page's <html> font-size through the shadow root. */
+.root {
+  --bg: #1b1f2a; --bg2: #232838; --fg: #e8ebf2; --muted: #9aa3b5; --line: #31384a; --accent: #6ea8ff;
+  --accent-fg: #0d1018; --danger: #ff8a8a; --shadow: 0 12px 32px rgba(0, 0, 0, .45), 0 2px 6px rgba(0, 0, 0, .3);
+  font: 400 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Ubuntu, sans-serif;
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+}
+.root[data-theme="light"] {
+  --bg: #ffffff; --bg2: #f3f5f9; --fg: #1a1d24; --muted: #5d6576; --line: #dde2ea; --accent: #2f6fe0;
+  --accent-fg: #ffffff; --danger: #c43c3c; --shadow: 0 12px 32px rgba(20, 30, 50, .18), 0 2px 6px rgba(20, 30, 50, .12);
+}
+.root * { box-sizing: border-box; }
+button, select { font: inherit; color: inherit; }
+
+.icon {
+  position: fixed; width: 28px; height: 28px; padding: 0; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg); box-shadow: var(--shadow); cursor: pointer; display: grid; place-items: center;
+  animation: pop .12s ease-out;
+}
+.icon:hover { border-color: var(--accent); }
+.icon svg { width: 18px; height: 18px; }
+
+.panel {
+  position: fixed; width: 400px; max-width: calc(100vw - 16px); max-height: min(380px, calc(100vh - 16px)); display: flex; flex-direction: column;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden;
+  animation: pop .12s ease-out;
+}
+@keyframes pop { from { opacity: 0; transform: translateY(4px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .icon, .panel { animation: none; } }
+
+.bar { display: flex; align-items: center; gap: 6px; padding: 8px 8px 8px 10px; background: var(--bg2); border-bottom: 1px solid var(--line); }
+.bar select {
+  flex: 1 1 0; min-width: 0; height: 30px; padding: 0 8px; border: 1px solid var(--line); border-radius: 7px;
+  background: var(--bg); cursor: pointer; appearance: auto;
+}
+.bar select:focus-visible, .btn:focus-visible, .chip:focus-visible, .icon:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.btn {
+  flex: none; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 7px; background: transparent;
+  display: grid; place-items: center; cursor: pointer; color: var(--muted);
+}
+.btn:hover:not(:disabled) { background: var(--line); color: var(--fg); }
+.btn:disabled { opacity: .4; cursor: default; }
+.btn svg { width: 18px; height: 18px; }
+.btn.on { color: var(--accent); }
+
+.body { padding: 12px 14px; overflow: auto; flex: 1 1 auto; min-height: 56px; }
+.out { white-space: pre-wrap; word-wrap: break-word; font-size: 15px; user-select: text; cursor: text; }
+.loading { color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.spinner { width: 14px; height: 14px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.error { color: var(--danger); font-weight: 600; }
+.attempts { margin: 6px 0 10px; padding: 0; list-style: none; color: var(--muted); font-size: 12px; }
+.link { padding: 0; border: 0; background: none; color: var(--accent); cursor: pointer; text-decoration: underline; margin-right: 12px; }
+
+.dict { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 13px; }
+.dict-row { margin: 2px 0; }
+.dict-pos { color: var(--muted); font-style: italic; margin-right: 6px; }
+
+.foot { display: flex; align-items: center; gap: 2px; padding: 6px 8px; border-top: 1px solid var(--line); background: var(--bg2); position: relative; }
+.chip {
+  height: 26px; padding: 0 10px; border: 1px solid var(--line); border-radius: 13px; background: var(--bg);
+  font-size: 12px; color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+}
+.chip:hover { color: var(--fg); border-color: var(--accent); }
+.spacer { flex: 1; }
+.toast { font-size: 12px; color: var(--accent); margin-right: 6px; }
+.menu {
+  position: absolute; left: 8px; bottom: 38px; min-width: 160px; padding: 4px; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 9px; box-shadow: var(--shadow);
+}
+.menu button { display: block; width: 100%; text-align: left; padding: 6px 10px; border: 0; border-radius: 6px; background: none; cursor: pointer; }
+.menu button:hover, .menu button:focus-visible { background: var(--line); outline: none; }
+.menu button[aria-current="true"] { color: var(--accent); }

@@ -1,5 +1,111 @@
 {
-  "extName": { "message": "Burbuja" },
-  "extDescription": { "message": "Traduce el texto seleccionado en una burbuja. Google con respaldo automático de Bing y DeepL, modo oscuro por defecto." },
-  "cmdTranslateSelection": { "message": "Traducir el texto seleccionado" }
+  "extName": {
+    "message": "Burbuja"
+  },
+  "extDescription": {
+    "message": "Traduce el texto seleccionado en una burbuja. Google con respaldo automático de Bing y DeepL, modo oscuro por defecto."
+  },
+  "cmdTranslateSelection": {
+    "message": "Traducir el texto seleccionado"
+  },
+  "uiTranslate": {
+    "message": "Traducir"
+  },
+  "uiListen": {
+    "message": "Escuchar"
+  },
+  "uiStop": {
+    "message": "Detener"
+  },
+  "uiCopy": {
+    "message": "Copiar"
+  },
+  "uiCopied": {
+    "message": "Copiado"
+  },
+  "uiSwap": {
+    "message": "Intercambiar idiomas"
+  },
+  "uiClose": {
+    "message": "Cerrar"
+  },
+  "uiSettings": {
+    "message": "Ajustes"
+  },
+  "uiAutoDetect": {
+    "message": "Detectar idioma"
+  },
+  "uiDetected": {
+    "message": "$P1$ (detectado)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "uiSource": {
+    "message": "Idioma de origen"
+  },
+  "uiTarget": {
+    "message": "Idioma de destino"
+  },
+  "uiEngine": {
+    "message": "Traducido por $P1$. Clic para usar otro motor",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "uiLoading": {
+    "message": "Traduciendo…"
+  },
+  "uiFailed": {
+    "message": "No se pudo traducir"
+  },
+  "uiRetry": {
+    "message": "Reintentar"
+  },
+  "uiTryAll": {
+    "message": "Probar otros motores"
+  },
+  "uiDictionary": {
+    "message": "Diccionario"
+  },
+  "errNetwork": {
+    "message": "sin conexión"
+  },
+  "errTimeout": {
+    "message": "tardó demasiado"
+  },
+  "errRateLimited": {
+    "message": "límite de peticiones"
+  },
+  "errAuth": {
+    "message": "clave rechazada"
+  },
+  "errUnsupportedLang": {
+    "message": "idioma no soportado"
+  },
+  "errBadResponse": {
+    "message": "respuesta inesperada"
+  },
+  "errEmpty": {
+    "message": "respuesta vacía"
+  },
+  "errNotConfigured": {
+    "message": "sin configurar"
+  },
+  "errHttp": {
+    "message": "error del servidor"
+  },
+  "errIdentical": {
+    "message": "devolvió el texto original"
+  },
+  "errBackoff": {
+    "message": "en pausa por límite"
+  },
+  "errAborted": {
+    "message": "cancelado"
+  }
 }

@@ -1,5 +1,111 @@
 {
-  "extName": { "message": "Burbuja" },
-  "extDescription": { "message": "Tłumaczy zaznaczony tekst w dymku. Google z automatycznym przełączeniem na Bing i DeepL, domyślnie ciemny motyw." },
-  "cmdTranslateSelection": { "message": "Przetłumacz zaznaczony tekst" }
+  "extName": {
+    "message": "Burbuja"
+  },
+  "extDescription": {
+    "message": "Tłumaczy zaznaczony tekst w dymku. Google z automatycznym przełączeniem na Bing i DeepL, domyślnie ciemny motyw."
+  },
+  "cmdTranslateSelection": {
+    "message": "Przetłumacz zaznaczony tekst"
+  },
+  "uiTranslate": {
+    "message": "Przetłumacz"
+  },
+  "uiListen": {
+    "message": "Odsłuchaj"
+  },
+  "uiStop": {
+    "message": "Zatrzymaj"
+  },
+  "uiCopy": {
+    "message": "Kopiuj"
+  },
+  "uiCopied": {
+    "message": "Skopiowano"
+  },
+  "uiSwap": {
+    "message": "Zamień języki"
+  },
+  "uiClose": {
+    "message": "Zamknij"
+  },
+  "uiSettings": {
+    "message": "Ustawienia"
+  },
+  "uiAutoDetect": {
+    "message": "Wykryj język"
+  },
+  "uiDetected": {
+    "message": "$P1$ (wykryto)",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "uiSource": {
+    "message": "Język źródłowy"
+  },
+  "uiTarget": {
+    "message": "Język docelowy"
+  },
+  "uiEngine": {
+    "message": "Przetłumaczone przez $P1$. Kliknij, aby użyć innego silnika",
+    "placeholders": {
+      "p1": {
+        "content": "$1"
+      }
+    }
+  },
+  "uiLoading": {
+    "message": "Tłumaczenie…"
+  },
+  "uiFailed": {
+    "message": "Nie udało się przetłumaczyć"
+  },
+  "uiRetry": {
+    "message": "Spróbuj ponownie"
+  },
+  "uiTryAll": {
+    "message": "Spróbuj innych silników"
+  },
+  "uiDictionary": {
+    "message": "Słownik"
+  },
+  "errNetwork": {
+    "message": "brak połączenia"
+  },
+  "errTimeout": {
+    "message": "przekroczono czas"
+  },
+  "errRateLimited": {
+    "message": "limit zapytań"
+  },
+  "errAuth": {
+    "message": "klucz odrzucony"
+  },
+  "errUnsupportedLang": {
+    "message": "język nieobsługiwany"
+  },
+  "errBadResponse": {
+    "message": "nieoczekiwana odpowiedź"
+  },
+  "errEmpty": {
+    "message": "pusta odpowiedź"
+  },
+  "errNotConfigured": {
+    "message": "nieskonfigurowany"
+  },
+  "errHttp": {
+    "message": "błąd serwera"
+  },
+  "errIdentical": {
+    "message": "zwrócił oryginalny tekst"
+  },
+  "errBackoff": {
+    "message": "wstrzymany po limicie"
+  },
+  "errAborted": {
+    "message": "anulowano"
+  }
 }

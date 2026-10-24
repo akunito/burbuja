@@ -1,5 +1,6 @@
 """Zen/Firefox e2e: temporary add-on install + real selection/click on local fixture pages."""
-import os, sys, time, glob, zipfile, io, traceback
+import os, sys, time, glob, zipfile, io, traceback, threading, functools
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
@@ -24,12 +25,23 @@ def driver():
     o.set_preference('intl.locale.requested', 'en-US')
     o.set_preference('intl.accept_languages', 'es-ES, es, en')
     o.set_preference('extensions.experiments.enabled', False)
+    o.set_preference('devtools.console.stdout.content', True)
+    o.set_preference('devtools.console.stdout.chrome', True)
     d = webdriver.Firefox(options=o, service=Service('/usr/local/bin/geckodriver', log_output=f'{OUT}/geckodriver.log'))
     d.set_window_size(1280, 900)
     return d
 
 
+def serve_pages():
+    # content scripts are not injected into file:// pages in Zen 1.22 (measured), so pages go over local HTTP
+    h = functools.partial(SimpleHTTPRequestHandler, directory='/app/tests/e2e/pages')
+    h.log_message = lambda *a, **k: None
+    srv = ThreadingHTTPServer(('127.0.0.1', 8765), h)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+
+
 def main(names):
+    serve_pages()
     import tests.e2e.cases as cases
     d = driver()
     failed = 0
