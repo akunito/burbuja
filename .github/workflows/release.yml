@@ -1,0 +1,44 @@
+name: release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+concurrency: release
+jobs:
+  sign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: tag matches package.json
+        run: test "v$(node -p 'require("./package.json").version')" = "${GITHUB_REF_NAME}"
+      - run: npm run check
+      - run: npm test
+      - name: smoke (live engines)
+        run: npm run smoke
+      - run: npm run build
+      - run: npx wxt zip -b firefox
+      - name: sign on AMO (unlisted)
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+        run: |
+          srcs=(.output/*-sources.zip)
+          npx web-ext sign --channel unlisted --source-dir .output/firefox-mv2 --upload-source-code "${srcs[0]}" \
+            --artifacts-dir web-ext-artifacts --approval-timeout 900000
+          xpis=(web-ext-artifacts/*.xpi)
+          mv "${xpis[0]}" "web-ext-artifacts/burbuja-${GITHUB_REF_NAME#v}.xpi"
+      - run: (cd .output/chrome-mv3 && zip -qr "../../web-ext-artifacts/burbuja-chrome-${GITHUB_REF_NAME#v}.zip" .)
+      - uses: softprops/action-gh-release@v3
+        with:
+          files: web-ext-artifacts/*
+          generate_release_notes: true
+      - name: publish updates.json (gh-pages)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/ci/updates-json.mjs "${GITHUB_REF_NAME#v}"
