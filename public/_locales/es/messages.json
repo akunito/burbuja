@@ -1,0 +1,5 @@
+{
+  "extName": { "message": "Burbuja" },
+  "extDescription": { "message": "Traduce el texto seleccionado en una burbuja. Google con respaldo automático de Bing y DeepL, modo oscuro por defecto." },
+  "cmdTranslateSelection": { "message": "Traducir el texto seleccionado" }
+}

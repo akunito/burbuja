@@ -1,0 +1,34 @@
+{
+  "translation": "Buenos días, ¿cómo estás?",
+  "sentences": [
+    {
+      "trans": "Buenos días, ¿cómo estás?",
+      "orig": "Good morning, how are you?"
+    }
+  ],
+  "detectedLanguages": {
+    "srclangs": [
+      "en"
+    ],
+    "srclangsConfidences": [
+      1
+    ],
+    "extendedSrclangs": [
+      "en"
+    ]
+  },
+  "sourceLanguage": "en",
+  "modelMetadata": [
+    {
+      "backends": [
+        "NMT"
+      ],
+      "modelSpecifications": [
+        {
+          "modelLabel": "ML_PROD",
+          "modelNamespace": "MN_LF"
+        }
+      ]
+    }
+  ]
+}

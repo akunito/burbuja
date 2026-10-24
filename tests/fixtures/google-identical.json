@@ -1,0 +1,28 @@
+{
+  "translation": "Hola",
+  "sentences": [
+    {
+      "trans": "Hola",
+      "orig": "Hola"
+    }
+  ],
+  "detectedLanguages": {
+    "srclangs": [
+      "es"
+    ],
+    "srclangsConfidences": [
+      1
+    ],
+    "extendedSrclangs": [
+      "es"
+    ]
+  },
+  "sourceLanguage": "es",
+  "modelMetadata": [
+    {
+      "backends": [
+        "IDENTITY"
+      ]
+    }
+  ]
+}

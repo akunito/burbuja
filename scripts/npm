@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Node never runs on the host (dotfiles rule): every npm/npx call goes through a throwaway container.
+# Rootless docker: container root == host user, so node_modules/.output stay owned by the user.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+TTY=(); [ -t 0 ] && TTY=(-it)
+exec docker run --rm "${TTY[@]}" -v "${PWD}:/app" -w /app --user 0:0 --memory 4g --cpus 6 \
+  -e CI="${CI:-}" -e npm_config_update_notifier=false -e WEB_EXT_API_KEY -e WEB_EXT_API_SECRET \
+  node:22-bookworm "${NPM_BIN:-npm}" "$@"

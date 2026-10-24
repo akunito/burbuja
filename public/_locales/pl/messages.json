@@ -1,0 +1,5 @@
+{
+  "extName": { "message": "Burbuja" },
+  "extDescription": { "message": "Tłumaczy zaznaczony tekst w dymku. Google z automatycznym przełączeniem na Bing i DeepL, domyślnie ciemny motyw." },
+  "cmdTranslateSelection": { "message": "Przetłumacz zaznaczony tekst" }
+}

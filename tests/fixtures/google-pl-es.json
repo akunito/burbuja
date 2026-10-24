@@ -1,0 +1,39 @@
+{
+  "translation": "Buenos días, ¿cómo estás?",
+  "sentences": [
+    {
+      "trans": "Buenos días, ¿cómo estás?",
+      "orig": "Dzień dobry, jak się masz?"
+    }
+  ],
+  "detectedLanguages": {
+    "srclangs": [
+      "pl"
+    ],
+    "srclangsConfidences": [
+      1
+    ],
+    "extendedSrclangs": [
+      "pl"
+    ]
+  },
+  "sourceLanguage": "pl",
+  "modelMetadata": [
+    {
+      "backends": [
+        "NMT",
+        "NMT"
+      ],
+      "modelSpecifications": [
+        {
+          "modelLabel": "ML_PROD",
+          "modelNamespace": "MN_LF"
+        },
+        {
+          "modelLabel": "ML_PROD",
+          "modelNamespace": "MN_LF"
+        }
+      ]
+    }
+  ]
+}

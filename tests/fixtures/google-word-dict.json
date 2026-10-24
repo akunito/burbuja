@@ -1,0 +1,246 @@
+{
+  "translation": "casa",
+  "sentences": [
+    {
+      "trans": "casa",
+      "orig": "house"
+    }
+  ],
+  "bilingualDictionary": [
+    {
+      "pos": "sustantivo",
+      "entry": [
+        {
+          "word": "casa",
+          "reverseTranslation": [
+            "house",
+            "home",
+            "household",
+            "place",
+            "homestead",
+            "hostel"
+          ],
+          "score": 0.51075,
+          "previousWord": "la"
+        },
+        {
+          "word": "cámara",
+          "reverseTranslation": [
+            "camera",
+            "chamber",
+            "cameraman",
+            "vault",
+            "hall",
+            "innertube"
+          ],
+          "score": 0.0017036198,
+          "previousWord": "la"
+        },
+        {
+          "word": "familia",
+          "reverseTranslation": [
+            "family",
+            "household",
+            "kin",
+            "parentage",
+            "kindred",
+            "dynasty"
+          ],
+          "score": 0.0006267267,
+          "previousWord": "la"
+        },
+        {
+          "word": "sala",
+          "reverseTranslation": [
+            "room",
+            "hall",
+            "lounge",
+            "ward",
+            "chamber",
+            "house"
+          ],
+          "score": 0.0005617942,
+          "previousWord": "la"
+        },
+        {
+          "word": "pabellón",
+          "reverseTranslation": [
+            "pavilion",
+            "canopy",
+            "house",
+            "bell tent"
+          ],
+          "score": 0.00012732725,
+          "previousWord": "el"
+        },
+        {
+          "word": "entrada",
+          "reverseTranslation": [
+            "entry",
+            "input",
+            "tackle",
+            "entrance",
+            "inlet",
+            "house"
+          ],
+          "score": 1.1610742e-07,
+          "previousWord": "la"
+        },
+        {
+          "word": "gimnasio",
+          "reverseTranslation": [
+            "gym",
+            "fitness center",
+            "gymnasium",
+            "house"
+          ],
+          "score": 1.1610742e-07,
+          "previousWord": "el"
+        },
+        {
+          "word": "firma",
+          "reverseTranslation": [
+            "signature",
+            "firm",
+            "signing",
+            "endorsement",
+            "sign manual",
+            "house"
+          ],
+          "score": 5.838248e-08,
+          "previousWord": "la"
+        },
+        {
+          "word": "público",
+          "reverseTranslation": [
+            "public",
+            "audience",
+            "spectators",
+            "attendance",
+            "turnout",
+            "house"
+          ],
+          "score": 5.838248e-08,
+          "previousWord": "el"
+        },
+        {
+          "word": "colegio",
+          "reverseTranslation": [
+            "school",
+            "college",
+            "schoolhouse",
+            "institute",
+            "house"
+          ],
+          "score": 5.838248e-08,
+          "previousWord": "el"
+        }
+      ],
+      "baseForm": "house",
+      "posEnum": 1
+    },
+    {
+      "pos": "verbo",
+      "entry": [
+        {
+          "word": "alojar",
+          "reverseTranslation": [
+            "accommodate",
+            "house",
+            "lodge",
+            "bed",
+            "billet",
+            "quarter"
+          ],
+          "score": 0.12322418
+        },
+        {
+          "word": "hospedar",
+          "reverseTranslation": [
+            "accommodate",
+            "house",
+            "lodge",
+            "harbor",
+            "put up",
+            "harbour"
+          ],
+          "score": 6.048955e-06
+        },
+        {
+          "word": "guardar",
+          "reverseTranslation": [
+            "save",
+            "keep",
+            "guard",
+            "hold",
+            "observe",
+            "house"
+          ],
+          "score": 1.3925486e-06
+        },
+        {
+          "word": "proveer viviendas",
+          "reverseTranslation": [
+            "house"
+          ],
+          "score": 2.3454345e-07
+        },
+        {
+          "word": "encajar",
+          "reverseTranslation": [
+            "fit",
+            "insert",
+            "dovetail",
+            "encase",
+            "enclose",
+            "put up with"
+          ],
+          "score": 5.838248e-08
+        },
+        {
+          "word": "conservar",
+          "reverseTranslation": [
+            "keep",
+            "preserve",
+            "conserve",
+            "retain",
+            "keep up",
+            "hang on"
+          ],
+          "score": 5.838248e-08
+        },
+        {
+          "word": "almacenar",
+          "reverseTranslation": [
+            "store",
+            "lay up",
+            "squirrel away",
+            "house"
+          ],
+          "score": 5.838248e-08
+        }
+      ],
+      "baseForm": "house",
+      "posEnum": 2
+    }
+  ],
+  "detectedLanguages": {
+    "srclangs": [
+      "en"
+    ],
+    "srclangsConfidences": [
+      1
+    ],
+    "extendedSrclangs": [
+      "en"
+    ]
+  },
+  "sourceLanguage": "en",
+  "modelMetadata": [
+    {
+      "backends": [
+        "STT_OTHER"
+      ]
+    }
+  ]
+}
