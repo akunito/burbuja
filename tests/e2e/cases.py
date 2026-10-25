@@ -237,9 +237,11 @@ def options_target(d):
         assert Select(q(d, '[data-testid=to]')).first_selected_option.get_attribute('value') == 'fr'
         assert 'bonjour' in out.text.lower() or 'comment' in out.text.lower(), out.text
     finally:
+        hidpi(d, False)
         goto_options(d)
         wait(d, lambda: d.find_elements(By.ID, 'target'))
         set_select(d, '#target', '')
+        set_select(d, '#second', 'en')
 
 
 def options_excluded(d):
@@ -303,3 +305,107 @@ def fallback_when_google_blocked(d):
     assert chip.startswith('Bing'), f'expected Bing after Google failures, got {chip}'
     assert 'cómo' in out.text.lower(), out.text
     print(f'   google blocked → {chip} in {ms:.0f} ms')
+
+
+# README/AMO screenshots: run on demand (`./scripts/e2e screenshots`), never part of ALL.
+SHOTS = '/app/docs/screenshots'
+
+
+def rect(d, el):
+    return d.execute_script('const r=arguments[0].getBoundingClientRect();return [r.left,r.top,r.right,r.bottom]', el)
+
+
+def shot(d, name, boxes, pad=24, full=False):
+    """Crop the union of boxes (viewport px) + pad out of a screenshot, in-browser via canvas (no PIL in the image)."""
+    import base64, os
+    os.makedirs(SHOTS, exist_ok=True)
+    b64 = d.get_full_page_screenshot_as_base64() if full else d.get_screenshot_as_base64()
+    x0 = min(b[0] for b in boxes) - pad; y0 = min(b[1] for b in boxes) - pad
+    x1 = max(b[2] for b in boxes) + pad; y1 = max(b[3] for b in boxes) + pad
+    data = d.execute_async_script("""
+        const [b64, x0, y0, x1, y1, done] = arguments;
+        const img = new Image();
+        img.onload = () => {
+          const k = devicePixelRatio;
+          const x = Math.max(0, Math.round(x0 * k)), y = Math.max(0, Math.round(y0 * k));
+          const w = Math.min(img.width, Math.round(x1 * k)) - x, h = Math.min(img.height, Math.round(y1 * k)) - y;
+          const c = document.createElement('canvas'); c.width = w; c.height = h;
+          c.getContext('2d').drawImage(img, x, y, w, h, 0, 0, w, h);
+          done(c.toDataURL('image/png').split(',')[1]);
+        };
+        img.onerror = () => done(null);
+        img.src = 'data:image/png;base64,' + b64;""", b64, x0, y0, x1, y1)
+    assert data, 'crop failed'
+    with open(f'{SHOTS}/{name}.png', 'wb') as f:
+        f.write(base64.b64decode(data))
+
+
+def set_radio(d, name, i):
+    goto_options(d)
+    wait(d, lambda: d.find_elements(By.CSS_SELECTOR, f'input[name={name}]'))[i].click()
+    wait(d, lambda: d.find_elements(By.CSS_SELECTOR, '.toast'), msg='not saved')
+
+
+def hidpi(d, on):
+    # 2x pixels for crisp README images; set_window_size stays in CSS px (measured: 2560 wide → innerWidth 2361 at 2x).
+    with d.context(d.CONTEXT_CHROME):
+        d.execute_script("arguments[0] ? Services.prefs.setCharPref('layout.css.devPixelsPerPx', '2') : Services.prefs.clearUserPref('layout.css.devPixelsPerPx')", on)
+    d.set_window_size(1280, 900)
+
+
+def screenshots(d):
+    goto_options(d)
+    wait(d, lambda: d.find_elements(By.ID, 'target'))
+    set_select(d, '#target', 'en')
+    set_select(d, '#second', 'es')
+    hidpi(d, True)
+    try:
+        # icon right after selecting
+        d.get(f'{PAGES}/demo.html')
+        select_paragraph(d, 'pl')
+        icon = wait(d, lambda: q(d, '[data-testid=icon]'), msg='icon did not appear')
+        time.sleep(0.3)
+        p = rect(d, d.find_element(By.ID, 'pl'))
+        i = rect(d, icon)
+        shot(d, 'icon', [[p[0] - 24, i[1] - 100, i[2] + 320, i[3] + 24]], pad=0)
+        # hero: dark panel over the article
+        icon.click()
+        wait_result(d)
+        time.sleep(0.4)
+        shot(d, 'panel-dark', [rect(d, d.find_element(By.ID, 'pl')), rect(d, q(d, '[data-testid=panel]'))], pad=28)
+        # engine menu open
+        q(d, '[data-testid=engine]').click()
+        menu = wait(d, lambda: q(d, '.menu'))
+        time.sleep(0.2)
+        shot(d, 'engine-menu', [rect(d, q(d, '[data-testid=panel]')), rect(d, menu)], pad=16)
+        # single-word dictionary
+        d.get(f'{PAGES}/demo.html')
+        ActionChains(d).double_click(d.find_element(By.ID, 'word')).perform()
+        wait(d, lambda: q(d, '[data-testid=icon]')).click()
+        wait_result(d)
+        wait(d, lambda: q(d, '[data-testid=dict]'), msg='no dictionary')
+        time.sleep(0.4)
+        shot(d, 'dictionary', [rect(d, d.find_element(By.ID, 'es')), rect(d, q(d, '[data-testid=panel]'))], pad=28)
+        # options page, dark
+        goto_options(d)
+        time.sleep(0.3)
+        secs = d.find_elements(By.CSS_SELECTOR, 'section')
+        hdr = rect(d, d.find_element(By.CSS_SELECTOR, 'header'))
+        shot(d, 'options-engines', [hdr, rect(d, secs[1])], pad=20, full=True)
+        shot(d, 'options-behaviour', [rect(d, secs[2]), rect(d, secs[3])], pad=20, full=True)
+        shot(d, 'options', [hdr, rect(d, d.find_element(By.CSS_SELECTOR, '.privacy'))], pad=24, full=True)
+        # light theme
+        set_radio(d, 'theme', 1)
+        try:
+            d.get(f'{PAGES}/demo.html')
+            out = open_panel(d, 'de')
+            time.sleep(0.4)
+            shot(d, 'panel-light', [rect(d, d.find_element(By.ID, 'de')), rect(d, q(d, '[data-testid=panel]'))], pad=28)
+        finally:
+            set_radio(d, 'theme', 0)
+    finally:
+        hidpi(d, False)
+        goto_options(d)
+        wait(d, lambda: d.find_elements(By.ID, 'target'))
+        set_select(d, '#target', '')
+        set_select(d, '#second', 'en')
