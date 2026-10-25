@@ -1,7 +1,12 @@
 {
   "addons": {
     "burbuja@akunito.com": {
-      "updates": []
+      "updates": [
+        {
+          "version": "0.1.0",
+          "update_link": "https://github.com/akunito/burbuja/releases/download/v0.1.0/burbuja-0.1.0.xpi"
+        }
+      ]
     }
   }
 }
