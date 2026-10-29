@@ -133,6 +133,9 @@ Google did not answer (blocked network, rate limit, endpoint changed), so the ne
 **Do I need a DeepL key?**
 No. Google and Bing need no key. DeepL is optional and only used with your own free key from deepl.com.
 
+**Burbuja stopped working and is missing from about:addons.**
+Open the signed `.xpi` from the [latest release](https://github.com/akunito/burbuja/releases/latest) again and accept the install. Do not remove the add-on first: reinstalling keeps your settings and DeepL key, removing deletes them. This happens when a temporary copy with the same id (loaded from `about:debugging`) was active while the signed one was installed and the browser then closed without a clean shutdown (power off, crash): Firefox only re-shows the installed copy when the temporary one is removed during a clean shutdown.
+
 **Listen does not play.**
 It uses Google's text-to-speech and falls back to the browser's own speech voices when Google does not start playing within 2 seconds. Check that the tab is not muted.
 
@@ -147,7 +150,7 @@ Nothing runs on the host: every npm command goes through a throwaway `node:22-bo
 ./scripts/npm run lint:ext   # web-ext lint on the Firefox build
 ```
 
-Load the Firefox build temporarily from `about:debugging` → This Firefox → Load Temporary Add-on → `.output/firefox-mv2/manifest.json`.
+Load the Firefox build temporarily from `about:debugging` → This Firefox → Load Temporary Add-on → `.output/firefox-mv2/manifest.json`. Do this in a separate test profile, not in the profile where the signed build is installed: a temporary copy with the same id hides the installed one, and if the browser then ends without a clean shutdown the installed copy stays hidden and disabled (measured on Zen 1.22.1b; fix in the FAQ).
 
 ### Tests
 
